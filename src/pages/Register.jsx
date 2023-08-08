@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import UndrawRegister from '../assets/UndrawRegister'
+import UndrawRegister from '@/assets/UndrawRegister'
 
 const Register = () => {
   const nameRef = useRef(null)

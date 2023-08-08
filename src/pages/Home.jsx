@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
-import AttendeeContainer from '../components/AttendeeContainer'
-import { UserContext } from '../context/UserContext'
+import AttendeeContainer from '@/components/AttendeeContainer'
+import { UserContext } from '@/context/UserContext'
 
 const Home = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext)

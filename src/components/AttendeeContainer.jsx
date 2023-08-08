@@ -1,5 +1,5 @@
 import './styles/attendee.scss'
-import MoreOptionsSvg from '../assets/MoreOptionsSvg'
+import MoreOptionsSvg from '@/assets/MoreOptionsSvg'
 
 const AttendeeContainer = ({ attendees }) => {
   return (

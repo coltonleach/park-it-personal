@@ -1,4 +1,4 @@
-import UndrawSetup from '../assets/UndrawSetup'
+import UndrawSetup from '@/assets/UndrawSetup'
 
 const Setup = () => {
   const handleSubmit = () => {

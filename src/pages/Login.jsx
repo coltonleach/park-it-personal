@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import UndrawSignin from '../assets/UndrawSignin'
-import Notification from '../components/Notification'
+import UndrawSignin from '@/assets/UndrawSignin'
+import Notification from '@/components/Notification'
 
 const Signin = () => {
   const [error, setError] = useState(null)
