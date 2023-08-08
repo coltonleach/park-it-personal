@@ -1,0 +1,40 @@
+.attendees-container {
+  height: 100%;
+  background-color: #e4e4e4;
+  width: 92vw;
+  border-radius: 1.5rem;
+  overflow-y: scroll;
+
+  .attendee {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--clr-white);
+    margin: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 1rem;
+
+    img {
+      border-radius: 50%;
+      aspect-ratio: 1;
+      background-color: rgb(194, 194, 194);
+    }
+
+    .attendee-details {
+      .pet-container {
+        p {
+          display: inline;
+          font-size: 1.5rem;
+          font-weight: 700;
+
+          &:not(:last-child)::after {
+            content: ', ';
+          }
+        }
+      }
+    }
+    svg {
+      margin-left: auto;
+    }
+  }
+}
