@@ -1,4 +1,4 @@
-#Park It! - Private
+# Park It! - Private
 
 Park It! is a dog park app that allows you to search for local parks in your area, and allows you to check in and out of the park. The intention is so that you can keep track of dogs that your dogs get along with, receive a notification whenever those dogs check in at the park, and be warned when "disliked" dogs are there.
 
