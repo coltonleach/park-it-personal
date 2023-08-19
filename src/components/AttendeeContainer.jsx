@@ -1,5 +1,6 @@
 import './styles/attendee.scss'
 import MoreOptionsSvg from '@/assets/MoreOptionsSvg'
+import { getDuration } from '@/utils/utils'
 
 const AttendeeContainer = ({ attendees }) => {
   return (
@@ -10,11 +11,11 @@ const AttendeeContainer = ({ attendees }) => {
           <div className='attendee-details'>
             <p>{attendee.owner}</p>
             <div className='pet-container'>
-              {attendee.pets.map((pet) => (
-                <p key={pet.id}>{pet.name}</p>
+              {attendee.dogs.map((dog, index) => (
+                <p key={index}>{dog.name}</p>
               ))}
             </div>
-            <p>{attendee.duration} minutes</p>
+            <p>{getDuration(attendee.checkedInTime)} minutes</p>
           </div>
           <MoreOptionsSvg />
         </div>

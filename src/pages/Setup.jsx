@@ -4,6 +4,7 @@ const Setup = () => {
   const handleSubmit = () => {
     console.log('submit')
   }
+
   return (
     <>
       <h1>Welcome to Park It!</h1>

@@ -1,15 +1,27 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import UndrawRegister from '@/assets/UndrawRegister'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase'
 
 const Register = () => {
+  const navigate = useNavigate()
   const nameRef = useRef(null)
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
   const confirmPasswordRef = useRef(null)
 
-  const handleSubmit = () => {
-    console.log('submit')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const email = emailRef.current.value
+    const password = passwordRef.current.value
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+      navigate('/settings')
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -36,7 +48,7 @@ const Register = () => {
         <button className='btn-primary' onClick={handleSubmit}>
           Create Account
         </button>
-        <Link to='/sign-in' className='btn-secondary'>
+        <Link to='/login' className='btn-secondary'>
           Already have an account?
         </Link>
       </div>

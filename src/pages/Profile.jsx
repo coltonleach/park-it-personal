@@ -1,4 +1,7 @@
 const Profile = () => {
+  const handleSignOut = () => {
+    console.log('sign out')
+  }
   return (
     <>
       <div style={{ textAlign: 'center' }}>
@@ -12,6 +15,9 @@ const Profile = () => {
         <li>Liked dogs</li>
         <li>Disliked dogs</li>
       </ul>
+      <button className='btn-secondary' onClick={handleSignOut}>
+        Sign Out
+      </button>
     </>
   )
 }

@@ -1,16 +1,20 @@
 import '@/components/styles/navbar.scss'
 import ParkSvg from '@/assets/ParkSvg'
 import ProfileSvg from '@/assets/ProfileSvg'
-import SettingsSvg from '@/assets/SettingsSvg'
 import { useNavigate } from 'react-router-dom'
+import { FiSettings } from 'react-icons/fi'
+import { FiUser } from 'react-icons/fi'
+import { FiEdit } from 'react-icons/fi'
+//BsPencilSquare
 
 const Navbar = () => {
   const navigate = useNavigate()
   return (
     <div className='navbar'>
-      <ProfileSvg onClick={() => navigate('/Profile')} />
+      <FiUser size='2rem' onClick={() => navigate('/profile')} />
       <ParkSvg onClick={() => navigate('/')} />
-      <SettingsSvg onClick={() => navigate('/Settings')} />
+      <FiEdit size='2rem' onClick={() => navigate('/contact')} />
+      {/* <FiSettings size='2rem' onClick={() => navigate('/settings')} /> */}
     </div>
   )
 }

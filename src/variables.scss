@@ -19,7 +19,10 @@
   --clr-danger-200: hsl(0, 67%, 82%);
   --clr-danger-100: hsl(0, 100%, 96%);
   --clr-white: white;
-  --clr-black: rgb(14, 13, 13);
-  --padding: 0.5em 1.25em;
-  --border-radius: 0.6em;
+  --clr-black: hsl(0, 4%, 5%);
+  --clr-container: hsl(0, 0%, 89%);
+  --padding: 0.5em 1.35em;
+  --border-radius-round: 0.5em;
+  --border-radius-rounder: 1em;
+  --border-radius-roundest: 1.5em;
 }

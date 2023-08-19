@@ -24,7 +24,7 @@
 a,
 button {
   padding: var(--padding);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-round);
   font-family: var(--font-family);
   color: var(--clr-primary-700);
   width: max-content;
@@ -40,12 +40,12 @@ form {
   input[type='text'],
   input[type='password'],
   input[type='number'] {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-family: var(--font-family);
     text-align: center;
     padding: var(--padding);
     width: 70vw;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-round);
     background-color: #e9e9e9;
     border: none;
     box-shadow: 0 2px 0 0 #cfcfcf;
@@ -66,18 +66,17 @@ form {
 .btn-primary,
 .btn-secondary,
 .btn-tertiary {
+  font-size: 1.5rem;
   text-decoration: none;
   border: solid 2px var(--clr-primary-500);
 }
 
 .btn-primary {
-  font-size: 1.5rem;
   background-color: var(--clr-primary-300);
   font-weight: 800;
 }
 
 .btn-secondary {
-  font-size: 1.5rem;
   background-color: transparent;
 }
 
@@ -87,7 +86,7 @@ form {
   top: 5rem;
   font-size: 1.5rem;
   padding: var(--padding);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-round);
   background-color: white;
   animation: slide-top-down 500ms forwards;
   &.error {

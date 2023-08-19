@@ -1,6 +1,6 @@
 .attendees-container {
   height: 100%;
-  background-color: #e4e4e4;
+  background-color: var(--clr-container);
   width: 92vw;
   border-radius: 1.5rem;
   overflow-y: scroll;
@@ -12,12 +12,13 @@
     background-color: var(--clr-white);
     margin: 1.5rem;
     padding: 0.5rem 1.5rem;
-    border-radius: 1rem;
+    border-radius: var(--border-radius-roundest);
 
     img {
       border-radius: 50%;
       aspect-ratio: 1;
       background-color: rgb(194, 194, 194);
+      border: 2px solid var(--clr-black);
     }
 
     .attendee-details {

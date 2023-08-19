@@ -1,64 +1,33 @@
-import { useState, useContext } from 'react'
-import AttendeeContainer from '@/components/AttendeeContainer'
-import { UserContext } from '@/context/UserContext'
+import { useEffect, useState } from 'react'
+import { fetchParks, fetchPark } from '@/utils/utils'
+import ParkOption from '@/components/ParkOption'
 
 const Home = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext)
+  const [parks, setParks] = useState([])
 
-  const [attendees, setAttendees] = useState([
-    {
-      id: 1,
-      owner: 'Maggie',
-      pets: [
-        {
-          id: 1,
-          name: 'Macine',
-          breed: 'Terrior Mixed',
-          Age: 6,
-        },
-        {
-          id: 2,
-          name: 'Tar',
-          breed: 'Wiener Dog',
-          age: 1,
-        },
-      ],
-      duration: 14,
-    },
-    {
-      id: 2,
-      owner: 'K M',
-      pets: [
-        {
-          id: 3,
-          name: 'Lucy',
-          breed: 'Mixed',
-          age: 8,
-        },
-      ],
-      duration: 23,
-    },
-  ])
-
-  const handleCheckIn = () => {
-    setCurrentUser({ ...currentUser, atPark: true })
-    setAttendees((prevAttendees) => [
-      ...prevAttendees,
-      { ...currentUser, duration: 10 },
-    ])
-  }
+  useEffect(() => {
+    const updateParks = async () => {
+      const parksInfo = await fetchParks()
+      setParks(parksInfo)
+    }
+    updateParks()
+  }, [])
 
   return (
     <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>My blank Park</h1>
-        <p>5 people are currently here</p>
-      </div>
-      <AttendeeContainer attendees={attendees} />
-      <button className='primary' onClick={handleCheckIn}>
-        {currentUser.atPark ? 'Check out!' : 'Check in!'}
-      </button>
+      <h1>Select A Park</h1>
+      {parks.map((park) => (
+        <ParkOption key={park.id} park={park} />
+      ))}
     </>
   )
 }
 export default Home
+
+export const parkDetailsLoader = async ({ params }) => {
+  const { parkId } = params
+
+  const parkInfo = await fetchPark(parkId)
+
+  return { ...parkInfo }
+}

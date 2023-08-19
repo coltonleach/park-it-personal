@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom'
 import UndrawSignin from '@/assets/UndrawSignin'
 import Notification from '@/components/Notification'
 
-const Signin = () => {
+const Login = () => {
   const [error, setError] = useState(null)
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
 
-  const handleSubmit = async () => {
-    console.log('login')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const email = emailRef.current.value
+    const password = passwordRef.current.value
+
     // const res = await supabase.auth.signInWithPassword({
+
     //   email: emailRef.current?.value!,
     //   password: passwordRef.current?.value!,
     // })
@@ -51,4 +55,4 @@ const Signin = () => {
   )
 }
 
-export default Signin
+export default Login
