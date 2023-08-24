@@ -7,7 +7,7 @@ const AttendeeContainer = ({ attendees }) => {
     <div className='attendees-container'>
       {attendees.map((attendee) => (
         <div key={attendee.id} className='attendee'>
-          <img src='' alt='avatar' />
+          {/* <img src='' alt='avatar' /> */}
           <div className='attendee-details'>
             <p>{attendee.owner}</p>
             <div className='pet-container'>

@@ -6,6 +6,11 @@ import {
   query,
   where,
   doc,
+  setDoc,
+  addDoc,
+  updateDoc,
+  serverTimestamp,
+  deleteField,
 } from 'firebase/firestore'
 
 export const fetchAttendeesAndDogs = async (park) => {
@@ -14,20 +19,20 @@ export const fetchAttendeesAndDogs = async (park) => {
   const attendeesSnapshot = await getDocs(q)
 
   const attendeesData = await Promise.all(
-    attendeesSnapshot.docs.map(async (document) => {
-      const dogsData = await fetchDogs(document)
+    attendeesSnapshot.docs.map(async (doc) => {
+      const dogsData = await fetchOwnersDogs(doc)
 
       return {
-        owner: document.data().name,
+        owner: doc.data().name,
         dogs: dogsData,
-        checkedInTime: document.data().checkedInTime.seconds,
+        checkedInTime: doc.data().checkedInTime.seconds,
       }
     })
   )
   return attendeesData
 }
 
-export const fetchDogs = async (dogsRef) => {
+export const fetchOwnersDogs = async (dogsRef) => {
   const dogsPromises = dogsRef.data().dogs.map(async (dog) => {
     const dogRef = doc(db, 'dogs', dog.id)
     const dogSnapshot = await getDoc(dogRef)
@@ -35,6 +40,11 @@ export const fetchDogs = async (dogsRef) => {
   })
 
   return Promise.all(dogsPromises)
+}
+
+export const fetchUser = async (user) => {
+  const userDoc = doc(db, 'users', user)
+  return await getDoc(userDoc)
 }
 
 export const fetchParks = async () => {
@@ -60,4 +70,51 @@ export const getDuration = (checkedInTimeInSeconds) => {
   return Math.round(
     Date.now() / MILLISECONDS / SECONDS - checkedInTimeInSeconds / SECONDS
   )
+}
+
+export const fetchBulletinMessages = async () => {
+  const q = query(collection(db, 'bulletin'))
+  const bulletinSnapshot = await getDocs(q)
+  const bulletinPromises = bulletinSnapshot.docs.map(async (doc) => {
+    const user = await fetchUser(doc.data().user.id)
+    return {
+      ...doc.data(),
+      user: user.data(),
+    }
+  })
+
+  return Promise.all(bulletinPromises)
+}
+
+export const addUser = async (name, dogRef, uid) => {
+  return await setDoc(doc(db, 'users', uid), {
+    name,
+    dogs: dogRef,
+  })
+}
+
+export const addDog = async (age, breed, name, sex) => {
+  return await addDoc(collection(db, 'dogs'), {
+    age,
+    breed,
+    name,
+    sex,
+  })
+}
+
+export const checkIn = async (userId, parkId) => {
+  const userRef = doc(db, 'users', userId)
+  const parkRef = doc(db, 'parks', parkId)
+  await updateDoc(userRef, {
+    park: parkRef,
+    checkedInTime: serverTimestamp(),
+  })
+}
+
+export const checkOut = async (userId) => {
+  const userRef = doc(db, 'users', userId)
+  await updateDoc(userRef, {
+    park: deleteField(),
+    checkedInTime: deleteField(),
+  })
 }

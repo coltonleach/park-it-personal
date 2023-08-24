@@ -1,31 +1,27 @@
 import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import UndrawSignin from '@/assets/UndrawSignin'
 import Notification from '@/components/Notification'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase'
 
 const Login = () => {
   const [error, setError] = useState(null)
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const email = emailRef.current.value
     const password = passwordRef.current.value
 
-    // const res = await supabase.auth.signInWithPassword({
-
-    //   email: emailRef.current?.value!,
-    //   password: passwordRef.current?.value!,
-    // })
-
-    // if (!res.error) router.push('/home')
-    // else {
-    //   setError(res.error?.message)
-    //   setTimeout(() => {
-    //     setError(null)
-    //   }, 5000)
-    // }
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password)
+      navigate('/')
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
