@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { UserContext } from '@/context/UserContext'
 
 const Profile = () => {
-  const user = useContext(UserContext)
+  const { userInfo } = useContext(UserContext)
 
   const handleSignOut = () => {
     console.log('sign out')
@@ -15,15 +15,19 @@ const Profile = () => {
     <>
       <div style={{ textAlign: 'center' }}>
         <h1>My Profile</h1>
-        <p>{user.displayName}</p>
+        <p>{userInfo.name}</p>
         <img src='' alt='avatar' />
         <p>Edit Profile</p>
       </div>
-      <ul>
-        {/* <li>Dog Parks</li> */}
-        <li>Your dogs</li>
-        {/* <li>Liked dogs</li>
-        <li>Disliked dogs</li> */}
+      <ul className='dog-container'>
+        {userInfo.dogs.map((dog, index) => (
+          <div key={index} className='dog-info'>
+            <p>{dog.name}</p>
+            <p>{dog.breed}</p>
+            <p>{dog.age} years old</p>
+            <p>{dog.sex}</p>
+          </div>
+        ))}
       </ul>
       <button className='btn-secondary' onClick={handleSignOut}>
         Sign Out

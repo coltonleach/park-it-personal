@@ -6,23 +6,21 @@ import { fetchAttendeesAndDogs, checkIn, checkOut } from '@/utils/utils'
 import { useLoaderData, useParams } from 'react-router-dom'
 
 const Park = () => {
-  const user = useContext(UserContext)
+  const { currentUser, userInfo, setUserInfo } = useContext(UserContext)
   const { parkId } = useParams()
   const parkDetails = useLoaderData()
 
   const [parkName, setParkName] = useState('Big Park')
   const [attendees, setAttendees] = useState([])
-  const [checkedIn, setCheckedIn] = useState(false)
 
   useEffect(() => {
     const updateAttendees = async () => {
       const attendeeDocs = await fetchAttendeesAndDogs(parkId)
       setParkName(parkDetails.name)
       setAttendees(
-        attendeeDocs.map((user, index) => {
+        attendeeDocs.map((user) => {
           return {
             ...user,
-            id: index,
           }
         })
       )
@@ -33,17 +31,35 @@ const Park = () => {
 
   const handleCheckIn = async () => {
     try {
-      await checkIn(user.uid, parkId)
-      setCheckedIn(true)
+      await checkIn(currentUser.uid, parkId)
+      setAttendees((prevAttendees) => {
+        return [
+          ...prevAttendees,
+          {
+            owner: userInfo.name,
+            dogs: userInfo.dogs,
+            checkedInTime: new Date().getTime() / 1000,
+          },
+        ]
+      })
+      setUserInfo((prevUserInfo) => {
+        return { ...prevUserInfo, checkedIn: true, park: parkId }
+      })
     } catch (err) {
       console.error(err)
     }
   }
 
   const handleCheckOut = async () => {
+    const filteredAttendees = attendees.filter(
+      (attendee) => attendee.id !== userInfo.id
+    )
     try {
-      await checkOut(user.uid)
-      setCheckedIn(false)
+      await checkOut(currentUser.uid)
+      setUserInfo((prevUserInfo) => {
+        return { ...prevUserInfo, checkedIn: false, park: '' }
+      })
+      setAttendees(filteredAttendees)
     } catch (err) {
       console.error(err)
     }
@@ -55,9 +71,9 @@ const Park = () => {
       <AttendeeContainer attendees={attendees} />
       <button
         className='btn-primary'
-        onClick={checkedIn ? handleCheckOut : handleCheckIn}
+        onClick={userInfo.checkedIn ? handleCheckOut : handleCheckIn}
       >
-        {checkedIn ? 'Check out!' : 'Check in!'}
+        {userInfo.checkedIn ? 'Check out!' : 'Check in!'}
       </button>
     </>
   )

@@ -5,7 +5,7 @@ import { addUser, addDog } from '@/utils/utils'
 import { useNavigate } from 'react-router-dom'
 
 const Setup = () => {
-  const user = useContext(UserContext)
+  const { currentUser } = useContext(UserContext)
   const navigator = useNavigate()
 
   const dogNameRef = useRef()
@@ -34,7 +34,7 @@ const Setup = () => {
 
     try {
       const dogRef = await addDog(dogAge, dogBreed, dogName, dogSex)
-      await addUser(user.displayName, [dogRef], user.uid)
+      await addUser(currentUser.displayName, [dogRef], currentUser.uid)
       navigator('/')
     } catch (err) {
       console.error(err)
@@ -61,12 +61,12 @@ const Setup = () => {
           min='0'
           max='20'
         />
-        <input
+        {/* <input
           type='file'
           ref={dogImageRef}
           id='dog_image'
           accept='image/png, image/jpeg'
-        />
+        /> */}
         <input
           type='text'
           ref={dogBreedRef}

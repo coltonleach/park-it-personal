@@ -11,6 +11,8 @@ import {
   updateDoc,
   serverTimestamp,
   deleteField,
+  orderBy,
+  limit,
 } from 'firebase/firestore'
 
 export const fetchAttendeesAndDogs = async (park) => {
@@ -26,14 +28,15 @@ export const fetchAttendeesAndDogs = async (park) => {
         owner: doc.data().name,
         dogs: dogsData,
         checkedInTime: doc.data().checkedInTime.seconds,
+        id: doc.data().id,
       }
     })
   )
   return attendeesData
 }
 
-export const fetchOwnersDogs = async (dogsRef) => {
-  const dogsPromises = dogsRef.data().dogs.map(async (dog) => {
+export const fetchOwnersDogs = async (userSnapshot) => {
+  const dogsPromises = userSnapshot.data().dogs.map(async (dog) => {
     const dogRef = doc(db, 'dogs', dog.id)
     const dogSnapshot = await getDoc(dogRef)
     return dogSnapshot.data()
@@ -42,9 +45,14 @@ export const fetchOwnersDogs = async (dogsRef) => {
   return Promise.all(dogsPromises)
 }
 
-export const fetchUser = async (user) => {
-  const userDoc = doc(db, 'users', user)
+export const fetchUser = async (userId) => {
+  const userDoc = doc(db, 'users', userId)
   return await getDoc(userDoc)
+}
+
+export const fetchDog = async (dogId) => {
+  const dogDoc = doc(db, 'dogs', dogId)
+  return await getDoc(dogDoc)
 }
 
 export const fetchParks = async () => {
@@ -73,7 +81,11 @@ export const getDuration = (checkedInTimeInSeconds) => {
 }
 
 export const fetchBulletinMessages = async () => {
-  const q = query(collection(db, 'bulletin'))
+  const q = query(
+    collection(db, 'bulletin'),
+    orderBy('createdTime', 'desc'),
+    limit(20)
+  )
   const bulletinSnapshot = await getDocs(q)
   const bulletinPromises = bulletinSnapshot.docs.map(async (doc) => {
     const user = await fetchUser(doc.data().user.id)
@@ -90,6 +102,7 @@ export const addUser = async (name, dogRef, uid) => {
   return await setDoc(doc(db, 'users', uid), {
     name,
     dogs: dogRef,
+    id: uid,
   })
 }
 
@@ -116,5 +129,14 @@ export const checkOut = async (userId) => {
   await updateDoc(userRef, {
     park: deleteField(),
     checkedInTime: deleteField(),
+  })
+}
+
+export const addBulletinMessage = async (userId, message) => {
+  const userRef = doc(db, 'users', userId)
+  return await addDoc(collection(db, 'bulletin'), {
+    user: userRef,
+    message,
+    createdTime: serverTimestamp(),
   })
 }

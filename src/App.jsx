@@ -26,9 +26,9 @@ import WithNav from './layouts/WithNav'
 import WithoutNav from './layouts/WithoutNav'
 
 export const LoggedInProtectedRoute = ({ children }) => {
-  const user = useContext(UserContext)
+  const { currentUser } = useContext(UserContext)
 
-  if (!user) return <Navigate to='/login' />
+  if (!currentUser) return <Navigate to='/login' />
 
   return (
     <>
@@ -39,9 +39,9 @@ export const LoggedInProtectedRoute = ({ children }) => {
 }
 
 export const LoggedOutProtectedRoute = ({ children }) => {
-  const user = useContext(UserContext)
+  const { currentUser } = useContext(UserContext)
 
-  if (user) return <Navigate to='/' />
+  if (currentUser) return <Navigate to='/' />
 
   return (
     <>
