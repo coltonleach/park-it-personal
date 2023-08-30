@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react'
 import AttendeeContainer from '@/components/AttendeeContainer'
 import { UserContext } from '@/context/UserContext'
 import ParkHeader from '@/components/ParkHeader'
-import { fetchAttendeesAndDogs, checkIn, checkOut } from '@/utils/utils'
+import { fetchAttendeesAndDogs, checkIn, checkOut } from '@/utils/firebaseUtils'
 import { useLoaderData, useParams } from 'react-router-dom'
 
 const Park = () => {

@@ -6,7 +6,7 @@ import {
   RouterProvider,
   Navigate,
 } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '@/context/UserContext'
 
 //Pages
@@ -24,11 +24,13 @@ import Recover from './pages/Recover'
 //Layout
 import WithNav from './layouts/WithNav'
 import WithoutNav from './layouts/WithoutNav'
+import SetupLayout from './layouts/SetupLayout'
 
 export const LoggedInProtectedRoute = ({ children }) => {
-  const { currentUser } = useContext(UserContext)
+  const { currentUser, userInfo, isLoading } = useContext(UserContext)
 
   if (!currentUser) return <Navigate to='/login' />
+  if (!isLoading && !userInfo.completed) return <Navigate to='/setup' />
 
   return (
     <>
@@ -51,24 +53,40 @@ export const LoggedOutProtectedRoute = ({ children }) => {
   )
 }
 
+export const AccountSetupProtectedRoute = ({ children }) => {
+  const { currentUser, userInfo } = useContext(UserContext)
+
+  if (!currentUser) return <Navigate to='/login' />
+  if (userInfo.completed) return <Navigate to='/' />
+
+  return (
+    <>
+      {children}
+      <SetupLayout />
+    </>
+  )
+}
+
 const mainRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/'>
       <Route element={<LoggedInProtectedRoute />}>
         <Route index element={<Home />} />
         <Route path='settings' element={<Settings />} />
-        <Route path='setup' element={<Setup />} />
         <Route path='contact' element={<Bulletin />} />
-        <Route path='setup' element={<Setup />} />
         <Route path='profile' element={<Profile />} />
         <Route path='/park/'>
           <Route path=':parkId' element={<Park />} loader={parkDetailsLoader} />
         </Route>
+        {/* <Route path='setup' element={<Setup />} /> */}
       </Route>
       <Route element={<LoggedOutProtectedRoute />}>
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
         <Route path='recover' element={<Recover />} />
+      </Route>
+      <Route element={<AccountSetupProtectedRoute />}>
+        <Route path='setup' element={<Setup />} />
       </Route>
     </Route>
   )

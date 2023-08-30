@@ -14,11 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 /* 
   TODO:
   * Add contact form for suggestions.
-  * Add checkin/out functionality, as well as update Firestore.
-  *   Check if the user has a user and dog doc in Firestore. If so, allow them to check in. If not, don't let them check in.
   * Add functionality to automatically check someone out after 30 minutes of being checked in.
-  * Add bulletin board.
-  *   Need to allow users to send a message
-  * Add a notification system when a "liked" dog joins the park.
-  *   Low priority
+  * Allow user to edit their profile
+  * Fix the issue where a user needs to refresh their browser whenever the finish the setup process.
 */

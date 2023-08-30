@@ -4,6 +4,7 @@ const UndrawRegister = (props) => (
     width={280}
     height={271}
     fill='none'
+    viewBox='0 0 271 280'
     {...props}
   >
     <g clipPath='url(#a)'>

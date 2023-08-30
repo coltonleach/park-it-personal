@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import { fetchParks, fetchPark } from '@/utils/utils'
+import { fetchParks, fetchPark } from '@/utils/firebaseUtils'
 import ParkOption from '@/components/ParkOption'
 import { UserContext } from '@/context/UserContext'
-import HomeHeader from '../components/HomeHeader'
+import HomeHeader from '@/components/HomeHeader'
 
 const Home = () => {
   const { userInfo } = useContext(UserContext)

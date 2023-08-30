@@ -4,6 +4,7 @@ const UndrawSignin = (props) => (
     width={405}
     height={285}
     fill='none'
+    viewBox='0 0 405 285'
     {...props}
   >
     <g clipPath='url(#a)'>

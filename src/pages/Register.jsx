@@ -1,10 +1,18 @@
-import { useRef } from 'react'
+import { useRef, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import UndrawRegister from '@/assets/UndrawRegister'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '@/firebase'
+import Notification from '@/components/Notification'
+import { resetNotification } from '@/utils/utils'
+import { addUser } from '@/utils/firebaseUtils'
+import { UserContext } from '@/context/UserContext'
 
 const Register = () => {
+  const { currentUser } = useContext(UserContext)
+
+  const [notification, setNotification] = useState({ text: null, type: null })
+
   const navigate = useNavigate()
   const nameRef = useRef(null)
   const emailRef = useRef(null)
@@ -13,21 +21,33 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const name = nameRef.current.value
     const email = emailRef.current.value
     const password = passwordRef.current.value
-    const name = nameRef.current.value
+    const confirmPassword = confirmPasswordRef.current.value
 
-    try {
-      const user = await createUserWithEmailAndPassword(auth, email, password)
-      await updateProfile(user.user, { displayName: name })
-      navigate('/setup')
-    } catch (err) {
-      console.error(err)
+    if (password === confirmPassword) {
+      try {
+        const user = await createUserWithEmailAndPassword(auth, email, password)
+        await updateProfile(user.user, { displayName: name })
+        await addUser(name, user.user.uid)
+        navigate('/setup')
+      } catch (err) {
+        console.log(err)
+        setNotification({ text: err.code, type: 'error' })
+        resetNotification(setNotification)
+      }
+    } else {
+      setNotification({ text: 'Passwords do not match!', type: 'error' })
+      resetNotification(setNotification)
     }
   }
 
   return (
     <>
+      {notification.type ? (
+        <Notification text={notification.text} type={notification.type} />
+      ) : null}
       <h1>Create your account</h1>
       <UndrawRegister />
       <form>

@@ -1,5 +1,8 @@
 import { useEffect, useState, useContext, useRef } from 'react'
-import { fetchBulletinMessages, addBulletinMessage } from '@/utils/utils'
+import {
+  fetchBulletinMessages,
+  addBulletinMessage,
+} from '@/utils/firebaseUtils'
 import BulletinMessages from '@/components/BulletinMessages'
 import { UserContext } from '@/context/UserContext'
 

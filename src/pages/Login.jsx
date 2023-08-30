@@ -4,9 +4,10 @@ import UndrawSignin from '@/assets/UndrawSignin'
 import Notification from '@/components/Notification'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebase'
+import { resetNotification } from '@/utils/utils'
 
 const Login = () => {
-  const [error, setError] = useState(null)
+  const [notification, setNotification] = useState({ text: null, type: null })
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
   const navigate = useNavigate()
@@ -20,13 +21,17 @@ const Login = () => {
       const res = await signInWithEmailAndPassword(auth, email, password)
       navigate('/')
     } catch (err) {
-      console.error(err)
+      console.log(err)
+      setNotification({ text: err.code, type: 'error' })
+      resetNotification(setNotification)
     }
   }
 
   return (
     <>
-      {error && <Notification text={error} type='error' />}
+      {notification.type ? (
+        <Notification text={notification.text} type={notification.type} />
+      ) : null}
       <h1>Welcome Back!</h1>
       <UndrawSignin />
       <form>

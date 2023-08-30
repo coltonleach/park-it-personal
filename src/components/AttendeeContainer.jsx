@@ -1,6 +1,6 @@
 import './styles/attendee.scss'
 import MoreOptionsSvg from '@/assets/MoreOptionsSvg'
-import { getDuration } from '@/utils/utils'
+import { getDuration } from '@/utils/firebaseUtils'
 
 const AttendeeContainer = ({ attendees }) => {
   return (

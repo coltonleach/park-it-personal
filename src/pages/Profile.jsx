@@ -1,15 +1,8 @@
-import { signOut, updateProfile } from 'firebase/auth'
-import { auth } from '@/firebase'
 import { useContext } from 'react'
 import { UserContext } from '@/context/UserContext'
 
 const Profile = () => {
   const { userInfo } = useContext(UserContext)
-
-  const handleSignOut = () => {
-    console.log('sign out')
-    signOut(auth)
-  }
 
   return (
     <>
@@ -29,9 +22,6 @@ const Profile = () => {
           </div>
         ))}
       </ul>
-      <button className='btn-secondary' onClick={handleSignOut}>
-        Sign Out
-      </button>
     </>
   )
 }

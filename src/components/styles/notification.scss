@@ -1,0 +1,29 @@
+.notification {
+  --_border: 2px solid var(--_border-color);
+  position: absolute;
+  top: 5rem;
+  font-size: 1.5rem;
+  padding: var(--padding);
+  border-radius: var(--border-radius-round);
+  background-color: white;
+  animation: slide-top-down 500ms forwards;
+  &.error {
+    --_border-color: var(--clr-danger-500);
+    font-weight: 700;
+    border: var(--_border);
+    background-color: var(--clr-danger-100);
+    color: var(--clr-danger-400);
+  }
+  &.success {
+    --_border-color: var(--clr-primary-500);
+    color: var(--clr-primary-600);
+    border: var(--_border);
+  }
+}
+
+@keyframes slide-top-down {
+  0% {
+    top: 0px;
+    opacity: 0;
+  }
+}
