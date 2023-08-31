@@ -2,7 +2,8 @@
   display: flex;
   width: 70%;
   justify-content: space-between;
-  background-color: var(--clr-container);
+  background-color: transparent;
   padding: 1rem;
   border-radius: 1em;
+  border: solid 2px var(--clr-primary-500);
 }

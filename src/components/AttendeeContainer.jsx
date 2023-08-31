@@ -17,7 +17,7 @@ const AttendeeContainer = ({ attendees }) => {
             </div>
             <p>{getDuration(attendee.checkedInTime)} minutes</p>
           </div>
-          <MoreOptionsSvg />
+          {/* <MoreOptionsSvg /> */}
         </div>
       ))}
     </div>

@@ -13,24 +13,36 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user)
-      const userSnapshot = await fetchUser(user.uid)
-      if (userSnapshot.data().completed) {
-        const dogsSnapshot = await fetchOwnersDogs(userSnapshot)
-        setUserInfo({
-          ...userSnapshot.data(),
-          dogs: dogsSnapshot,
-          id: user.uid,
-          checkedIn: userSnapshot.data().park ? true : false,
-          park: userSnapshot.data().park?.id,
-        })
-      }
-      setIsLoading(false)
     })
 
+    const fetchDetails = async () => {
+      if (currentUser && currentUser.uid) {
+        const userSnapshot = await fetchUser(currentUser.uid)
+        if (userSnapshot.data().completed) {
+          const dogsInfo = await fetchOwnersDogs(userSnapshot)
+          setUserInfo({
+            ...userSnapshot.data(),
+            dogs: dogsInfo,
+            id: currentUser.uid,
+            checkedIn: userSnapshot.data().park ? true : false,
+            park: userSnapshot.data().park?.id,
+          })
+        } else {
+          setUserInfo({
+            name: userSnapshot.data().name,
+            id: currentUser.uid,
+          })
+        }
+        setIsLoading(false)
+      }
+    }
+
+    fetchDetails()
     return () => {
+      setUserInfo({})
       unsub()
     }
-  }, [])
+  }, [currentUser])
 
   return (
     <UserContext.Provider

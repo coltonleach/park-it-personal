@@ -13,13 +13,13 @@ import { UserContext } from '@/context/UserContext'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home, { parkDetailsLoader } from './pages/Home'
-import Settings from './pages/Settings'
 import Setup from './pages/Setup'
 import Profile from './pages/Profile'
 import Park from './pages/Park'
 import Contact from './pages/Contact'
 import Bulletin from './pages/Bulletin'
 import Recover from './pages/Recover'
+import Welcome from './pages/Welcome'
 
 //Layout
 import WithNav from './layouts/WithNav'
@@ -72,13 +72,11 @@ const mainRouter = createBrowserRouter(
     <Route path='/'>
       <Route element={<LoggedInProtectedRoute />}>
         <Route index element={<Home />} />
-        <Route path='settings' element={<Settings />} />
         <Route path='contact' element={<Bulletin />} />
         <Route path='profile' element={<Profile />} />
         <Route path='/park/'>
           <Route path=':parkId' element={<Park />} loader={parkDetailsLoader} />
         </Route>
-        {/* <Route path='setup' element={<Setup />} /> */}
       </Route>
       <Route element={<LoggedOutProtectedRoute />}>
         <Route path='login' element={<Login />} />
@@ -88,6 +86,7 @@ const mainRouter = createBrowserRouter(
       <Route element={<AccountSetupProtectedRoute />}>
         <Route path='setup' element={<Setup />} />
       </Route>
+      <Route path='welcome' element={<Welcome />} />
     </Route>
   )
 )

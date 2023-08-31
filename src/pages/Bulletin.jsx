@@ -24,7 +24,20 @@ const Bulletin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const message = messageRef.current.value
-    await addBulletinMessage(userInfo.id, message)
+
+    if (message.length > 0) {
+      await addBulletinMessage(userInfo.id, message)
+      setMessages((prevMessages) => {
+        return [
+          {
+            user: { name: userInfo.name },
+            message,
+          },
+          ...prevMessages,
+        ]
+      })
+      messageRef.current.value = ''
+    }
   }
 
   return (
@@ -32,7 +45,19 @@ const Bulletin = () => {
       <h1>Bulletin Board</h1>
       <BulletinMessages messages={messages} />
       <form onSubmit={(e) => handleSubmit(e)}>
-        <textarea ref={messageRef} style={{ width: '80vw' }} />
+        <textarea
+          ref={messageRef}
+          placeholder={`What's on your mind?`}
+          style={{
+            width: '80vw',
+            height: '10ch',
+            borderRadius: '1rem',
+            border: '2px solid var(--clr-black)',
+            fontFamily: 'var(--font-family)',
+            padding: '0.35rem 0.75em',
+            resize: 'none',
+          }}
+        />
         <button className='btn-primary'>Submit</button>
       </form>
     </>

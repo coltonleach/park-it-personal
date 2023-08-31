@@ -1,11 +1,8 @@
-.attendees-container {
-  height: 100%;
-  background-color: var(--clr-container);
+.dog-container {
   width: 92vw;
-  border-radius: 1.5rem;
-  overflow-y: scroll;
+  height: 100%;
 
-  .attendee {
+  .dog-info {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -15,25 +12,24 @@
     border-radius: var(--border-radius-roundest);
 
     img {
+      width: 50px;
       border-radius: 50%;
       aspect-ratio: 1;
       background-color: var(--clr-primary-200);
       border: 2px solid var(--clr-black);
     }
 
-    .attendee-details {
-      .pet-container {
-        p {
-          display: inline;
-          font-size: 1.5rem;
-          font-weight: 700;
-
-          &:not(:last-child)::after {
-            content: ', ';
-          }
-        }
-      }
+    .dog-name {
+      font-size: 1.5rem;
+      font-weight: 700;
     }
+    .dog-breed {
+    }
+    .dog-age {
+    }
+    .dog-sex {
+    }
+
     svg {
       margin-left: auto;
     }

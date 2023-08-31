@@ -6,7 +6,7 @@ const BulletinMessages = ({ messages }) => {
     <>
       <div className='messages-container'>
         {messages.map((message) => {
-          const date = message.createdTime.toDate()
+          const date = message?.createdTime?.toDate() || new Date()
           return (
             <BulletinMessage
               key={message.createdTime}

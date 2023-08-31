@@ -36,6 +36,14 @@ const Setup = () => {
       setUserInfo((prevUserInfo) => {
         return {
           ...prevUserInfo,
+          dogs: [
+            {
+              age: dogAge,
+              breed: dogBreed,
+              name: dogName,
+              sex: dogSex,
+            },
+          ],
           completed: true,
         }
       })

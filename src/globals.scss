@@ -12,13 +12,14 @@
 #root {
   font-family: var(--font-family);
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 2rem;
   padding: 1rem 0;
   height: 100vh;
+  overflow-y: scroll;
   background-color: var(--clr-white);
+  color: var(--clr-black);
 }
 
 form {
@@ -26,7 +27,7 @@ form {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 
   input[type='text'],
   input[type='password'],
@@ -41,8 +42,24 @@ form {
     border: none;
     box-shadow: 0 2px 0 0 #cfcfcf;
   }
-  input[name='dog_sex'] {
-    // display: none;
+
+  div {
+    display: flex;
+    gap: 1rem;
+    input[name='dog_sex'] {
+      // display: none
+      //fix this so the user knows what sex they selected
+
+      & ~ label {
+        border: solid 1px var(--clr-primary-500);
+      }
+
+      &:checked + label {
+        border-width: 2px;
+        background-color: var(--clr-primary-300);
+        font-weight: 600;
+      }
+    }
   }
 }
 
