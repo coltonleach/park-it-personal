@@ -23,7 +23,9 @@ const Profile = () => {
         <p>{userInfo.name}</p>
       </div>
       <ul className='dog-container'>
-        <DogContainer dogs={userInfo.dogs} setEditDog={setEditDog} />
+        {userInfo.name ? (
+          <DogContainer dogs={userInfo.dogs} setEditDog={setEditDog} />
+        ) : null}
       </ul>
       {/* <button className='btn-secondary' onClick={handleAddDog}>
         Add Dog
