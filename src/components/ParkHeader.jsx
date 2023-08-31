@@ -1,4 +1,4 @@
-import './styles/ParkHeader.scss'
+import './styles/parkHeader.scss'
 
 const ParkHeader = ({ name, count }) => {
   return (
