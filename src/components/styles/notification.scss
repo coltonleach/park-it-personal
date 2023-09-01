@@ -7,9 +7,10 @@
   border-radius: var(--border-radius-round);
   background-color: white;
   animation: slide-top-down 500ms forwards;
+  font-weight: 700;
+
   &.error {
     --_border-color: var(--clr-danger-500);
-    font-weight: 700;
     border: var(--_border);
     background-color: var(--clr-danger-100);
     color: var(--clr-danger-400);
