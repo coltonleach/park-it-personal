@@ -4,5 +4,9 @@
 
 .warning {
   color: var(--clr-primary-700);
-  weight: 700;
+  font-weight: 700;
+  background-color: var(--clr-primary-300);
+  width: 100vw;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }

@@ -1,0 +1,14 @@
+.message-box {
+  width: 80vw;
+  height: 4ch;
+  border-radius: 1rem;
+  border: 2px solid var(--clr-black);
+  font-family: var(--font-family);
+  padding: 0.35rem 0.75em;
+  resize: none;
+
+  &:active,
+  &:focus {
+    height: 10ch;
+  }
+}

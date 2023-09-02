@@ -7,12 +7,12 @@ const HomeHeader = ({ checkedInPark }) => {
   return (
     <>
       <div className='home-header'>
-        <h1>Welcome back, {userInfo.name}!</h1>
         {userInfo.checkedIn ? (
           <p className='warning'>
             You're currently checked in at {checkedInPark}
           </p>
         ) : null}
+        <h3>Select a park to see who's there!</h3>
       </div>
     </>
   )

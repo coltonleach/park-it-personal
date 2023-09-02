@@ -5,6 +5,7 @@ import {
 } from '@/utils/firebaseUtils'
 import BulletinMessages from '@/components/BulletinMessages'
 import { UserContext } from '@/context/UserContext'
+import './styles/bulletin.scss'
 
 const Bulletin = () => {
   const { userInfo } = useContext(UserContext)
@@ -48,15 +49,7 @@ const Bulletin = () => {
         <textarea
           ref={messageRef}
           placeholder={`What's on your mind?`}
-          style={{
-            width: '80vw',
-            height: '10ch',
-            borderRadius: '1rem',
-            border: '2px solid var(--clr-black)',
-            fontFamily: 'var(--font-family)',
-            padding: '0.35rem 0.75em',
-            resize: 'none',
-          }}
+          className='message-box'
         />
         <button className='btn-primary'>Submit</button>
       </form>
