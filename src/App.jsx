@@ -14,6 +14,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home, { parkDetailsLoader } from './pages/Home'
 import Setup from './pages/Setup'
+import Settings from './pages/Settings'
 import Profile from './pages/Profile'
 import Park from './pages/Park'
 import Contact from './pages/Contact'
@@ -72,8 +73,9 @@ const mainRouter = createBrowserRouter(
     <Route path='/'>
       <Route element={<LoggedInProtectedRoute />}>
         <Route index element={<Home />} />
-        <Route path='contact' element={<Bulletin />} />
+        <Route path='bulletin' element={<Bulletin />} />
         <Route path='profile' element={<Profile />} />
+        <Route path='settings' element={<Settings />} />
         <Route path='/park/'>
           <Route path=':parkId' element={<Park />} loader={parkDetailsLoader} />
         </Route>

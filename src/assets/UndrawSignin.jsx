@@ -1,7 +1,7 @@
 const UndrawSignin = (props) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
-    width={405}
+    width={370}
     height={285}
     fill='none'
     viewBox='0 0 405 285'

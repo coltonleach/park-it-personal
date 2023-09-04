@@ -35,7 +35,7 @@ const Login = () => {
       <h1>Welcome Back!</h1>
       <UndrawSignin />
       <form>
-        <input type='text' id='email' placeholder='email' ref={emailRef} />
+        <input type='email' id='email' placeholder='email' ref={emailRef} />
         <input
           type='password'
           id='password'

@@ -51,7 +51,7 @@ const Bulletin = () => {
           placeholder={`What's on your mind?`}
           className='message-box'
         />
-        <button className='btn-primary'>Submit</button>
+        <button className='btn-primary'>Send</button>
       </form>
     </>
   )

@@ -52,7 +52,7 @@ const Register = () => {
       <UndrawRegister />
       <form>
         <input type='text' id='name' placeholder='your name' ref={nameRef} />
-        <input type='text' id='email' placeholder='email' ref={emailRef} />
+        <input type='email' id='email' placeholder='email' ref={emailRef} />
         <input
           type='password'
           id='password'

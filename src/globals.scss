@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   padding: 1rem 0;
   height: 100svh;
   overflow-y: scroll;
@@ -30,13 +30,14 @@ form {
   gap: 1rem;
 
   input[type='text'],
+  input[type='email'],
   input[type='password'],
   input[type='number'] {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-family: var(--font-family);
     text-align: center;
     padding: var(--padding);
-    width: 70vw;
+    width: 60vw;
     border-radius: var(--border-radius-round);
     background-color: #e9e9e9;
     border: none;
@@ -47,9 +48,6 @@ form {
     display: flex;
     gap: 1rem;
     input[name='dog_sex'] {
-      // display: none
-      //fix this so the user knows what sex they selected
-
       & ~ label {
         border: solid 1px var(--clr-primary-500);
       }

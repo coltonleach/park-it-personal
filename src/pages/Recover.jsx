@@ -33,7 +33,7 @@ const Recover = () => {
       <h1>Reset Password</h1>
       <UndrawResetPassword />
       <form onSubmit={handleSubmit}>
-        <input type='text' id='email' placeholder='email' ref={emailRef} />
+        <input type='email' id='email' placeholder='email' ref={emailRef} />
         <button className='btn-primary'>Send email</button>
       </form>
       <Link className='btn-secondary' to='/'>

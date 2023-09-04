@@ -27,9 +27,13 @@ const Profile = () => {
           <DogContainer dogs={userInfo.dogs} setEditDog={setEditDog} />
         ) : null}
       </ul>
-      {/* <button className='btn-secondary' onClick={handleAddDog}>
-        Add Dog
-      </button> */}
+      <div className='btn-container'>
+        <p style={{ fontStyle: 'italic' }}>editing feature coming soon</p>
+        {/* <button className='btn-secondary'>Edit Profile</button>
+        <button className='btn-secondary' onClick={handleAddDog}>
+          Add Dog
+        </button> */}
+      </div>
     </>
   )
 }

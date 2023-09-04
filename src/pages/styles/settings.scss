@@ -1,0 +1,22 @@
+.settings-container {
+  width: 100%;
+  list-style: none;
+
+  li {
+    --_border: 1px solid var(--clr-shade-300);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-top: var(--_border);
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+
+    svg:last-child {
+      margin-left: auto;
+    }
+
+    &:last-child {
+      border-bottom: var(--_border);
+    }
+  }
+}

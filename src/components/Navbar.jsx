@@ -1,19 +1,15 @@
 import '@/components/styles/navbar.scss'
 import { useNavigate } from 'react-router-dom'
-import { FiLogOut, FiUser, FiHome } from 'react-icons/fi'
-import { signOut } from 'firebase/auth'
+import { FiSettings, FiHome } from 'react-icons/fi'
 import { TbMessage } from 'react-icons/tb'
-import { auth } from '@/firebase'
 
 const Navbar = () => {
   const navigate = useNavigate()
   return (
     <div className='navbar'>
-      <FiUser size='2rem' onClick={() => navigate('/profile')} />
-      <TbMessage size='2rem' onClick={() => navigate('/contact')} />
+      <FiSettings size='2rem' onClick={() => navigate('/settings')} />
       <FiHome size='2rem' onClick={() => navigate('/')} />
-      <FiLogOut size='2rem' onClick={() => signOut(auth)} />
-      {/* <FiSettings size='2rem' onClick={() => navigate('/settings')} /> */}
+      <TbMessage size='2rem' onClick={() => navigate('/bulletin')} />
     </div>
   )
 }
