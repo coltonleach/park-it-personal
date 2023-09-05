@@ -21,6 +21,7 @@ import Contact from './pages/Contact'
 import Bulletin from './pages/Bulletin'
 import Recover from './pages/Recover'
 import Welcome from './pages/Welcome'
+import DevLog from './pages/DevLog'
 
 //Layout
 import WithNav from './layouts/WithNav'
@@ -76,6 +77,7 @@ const mainRouter = createBrowserRouter(
         <Route path='bulletin' element={<Bulletin />} />
         <Route path='profile' element={<Profile />} />
         <Route path='settings' element={<Settings />} />
+        <Route path='devlog' element={<DevLog />} />
         <Route path='/park/'>
           <Route path=':parkId' element={<Park />} loader={parkDetailsLoader} />
         </Route>

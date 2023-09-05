@@ -5,6 +5,7 @@ import {
   FiTrash2,
   FiMail,
 } from 'react-icons/fi'
+import { HiOutlineNewspaper } from 'react-icons/hi'
 import './styles/settings.scss'
 import { signOut, deleteUser } from 'firebase/auth'
 import { auth } from '@/firebase'
@@ -59,6 +60,10 @@ const Settings = () => {
         </li>
         <li onClick={() => setDeleteAccount(true)}>
           <FiTrash2 size='1.2rem' /> Delete account
+          <FiArrowRight size='1.25rem' />
+        </li>
+        <li onClick={() => navigator('/devlog')}>
+          <HiOutlineNewspaper size='1.2rem' /> Latest updates/bugs
           <FiArrowRight size='1.25rem' />
         </li>
         {/* <li>

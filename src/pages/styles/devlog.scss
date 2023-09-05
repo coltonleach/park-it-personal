@@ -1,0 +1,17 @@
+.update-container {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .update-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    li {
+      line-height: 1.2;
+      width: 30ch;
+      list-style-position: inside;
+    }
+  }
+}
