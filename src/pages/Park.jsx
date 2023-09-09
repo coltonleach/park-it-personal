@@ -12,7 +12,7 @@ const Park = () => {
   const { parkId } = useParams()
   const parkDetails = useLoaderData()
 
-  const [parkName, setParkName] = useState('Big Park')
+  const [parkName, setParkName] = useState('')
   const [attendees, setAttendees] = useState([])
 
   useEffect(() => {
