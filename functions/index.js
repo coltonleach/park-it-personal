@@ -29,10 +29,17 @@ exports.checkAttendees = onSchedule("every 5 mins", async (event) => {
       .get();
   const batch = await getFirestore().batch();
 
-  attendeesQuery.forEach((doc) => {
-    batch.update(doc.ref, {
+  attendeesQuery.forEach(async (userDoc) => {
+    const userRef = userDoc.ref;
+    const parkRef = userDoc.data().park;
+
+    batch.update(userRef, {
       checkedInTime: FieldValue.delete(),
       park: FieldValue.delete(),
+    });
+
+    batch.update(parkRef, {
+      attendees: FieldValue.arrayRemove(userRef),
     });
   });
 

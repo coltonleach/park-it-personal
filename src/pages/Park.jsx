@@ -32,7 +32,6 @@ const Park = () => {
       await updateAttendees()
     })
 
-    // updateAttendees()
     return () => {
       unsub()
     }
