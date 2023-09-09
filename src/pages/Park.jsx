@@ -64,7 +64,7 @@ const Park = () => {
       (attendee) => attendee.id !== currentUser.uid
     )
     try {
-      await checkOut(currentUser.uid, parkId)
+      await checkOut(currentUser.uid, userInfo.park)
       setUserInfo((prevUserInfo) => {
         return { ...prevUserInfo, checkedIn: false, park: '' }
       })

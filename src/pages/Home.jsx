@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
-import { fetchParks, fetchPark } from '@/utils/firebaseUtils'
+import { fetchPark } from '@/utils/firebaseUtils'
 import ParkOption from '@/components/ParkOption'
 import { UserContext } from '@/context/UserContext'
 import HomeHeader from '@/components/HomeHeader'
+import { onSnapshot, query, collection } from 'firebase/firestore'
+import { db } from '@/firebase'
 
 const Home = () => {
   const { userInfo } = useContext(UserContext)
@@ -10,15 +12,28 @@ const Home = () => {
   const [checkedInPark, setCheckedInPark] = useState(null)
 
   useEffect(() => {
-    const updateParks = async () => {
-      const parksInfo = await fetchParks()
-      setParks(parksInfo)
+    const q = query(collection(db, 'parks'))
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      const parksInfo = []
+      querySnapshot.forEach((doc) => {
+        parksInfo.push({
+          name: doc.data().name,
+          id: doc.id,
+          attendeeCount: doc.data().attendees.length,
+        })
+      })
+
       if (userInfo.park) {
         const filteredPark = parksInfo.find((park) => park.id === userInfo.park)
         setCheckedInPark(filteredPark.name)
       }
+
+      setParks(parksInfo)
+    })
+
+    return () => {
+      unsub()
     }
-    updateParks()
   }, [userInfo])
 
   return (

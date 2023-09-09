@@ -62,6 +62,7 @@ export const fetchParks = async () => {
     return {
       name: doc.data().name,
       id: doc.id,
+      attendeeCount: doc.data().attendees.length,
     }
   })
 }

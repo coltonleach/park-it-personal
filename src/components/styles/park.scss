@@ -2,8 +2,15 @@
   display: flex;
   width: 70%;
   justify-content: space-between;
+  align-items: center;
   background-color: transparent;
-  padding: 1rem;
-  border-radius: 1em;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-rounder);
   border: solid 2px var(--clr-primary-500);
+
+  .dog-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
 }

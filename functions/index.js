@@ -7,6 +7,11 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
+/*
+  TODO:
+  * remove user from park's attendees array
+*/
+
 const {onSchedule} = require("firebase-functions/v2/scheduler");
 
 const {initializeApp} = require("firebase-admin/app");

@@ -15,4 +15,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   TODO:
   * Add contact form for suggestions.
   * Allow user to edit their profile
+  * Replace the checkin/out system to add/remove dogs instead of users
 */
