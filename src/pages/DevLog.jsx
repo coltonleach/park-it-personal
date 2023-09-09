@@ -33,6 +33,11 @@ const DevLog = () => {
           <li>Add a way to submit bug reports/feedback suggestions.</li>
           <li>Add the ability to edit both you and your dog's information.</li>
           <li>Allow users to add/remove dogs from their account.</li>
+          <li>Allow users to upload a picture for their dog(s).</li>
+          <li>
+            Send notifications to users whenever a certain amount of dogs are at
+            the park.
+          </li>
         </ul>
       </div>
     </>

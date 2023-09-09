@@ -13,7 +13,6 @@ import {
   deleteField,
   orderBy,
   limit,
-  onSnapshot,
 } from 'firebase/firestore'
 
 export const fetchAttendeesAndDogs = async (park) => {
@@ -129,17 +128,37 @@ export const addDog = async (age, breed, name, sex) => {
 export const checkIn = async (userId, parkId) => {
   const userRef = doc(db, 'users', userId)
   const parkRef = doc(db, 'parks', parkId)
+
+  const parkSnapshot = await getDoc(parkRef)
+  const attendees = parkSnapshot.data().attendees
+  const updatedAttendees = [...attendees, userRef]
+
   await updateDoc(userRef, {
     park: parkRef,
     checkedInTime: serverTimestamp(),
   })
+  await updateDoc(parkRef, {
+    attendees: updatedAttendees,
+  })
 }
 
-export const checkOut = async (userId) => {
+export const checkOut = async (userId, parkId) => {
   const userRef = doc(db, 'users', userId)
+  const parkRef = doc(db, 'parks', parkId)
+
+  const parkSnapshot = await getDoc(parkRef)
+  const attendees = parkSnapshot.data().attendees
+  const updatedAttendees = attendees.filter(
+    (attendee) => attendee.id !== userId
+  )
+
   await updateDoc(userRef, {
     park: deleteField(),
     checkedInTime: deleteField(),
+  })
+
+  await updateDoc(parkRef, {
+    attendees: updatedAttendees,
   })
 }
 

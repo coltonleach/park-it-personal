@@ -4,6 +4,8 @@ import { UserContext } from '@/context/UserContext'
 import ParkHeader from '@/components/ParkHeader'
 import { fetchAttendeesAndDogs, checkIn, checkOut } from '@/utils/firebaseUtils'
 import { useLoaderData, useParams } from 'react-router-dom'
+import { onSnapshot, doc } from 'firebase/firestore'
+import { db } from '@/firebase'
 
 const Park = () => {
   const { currentUser, userInfo, setUserInfo } = useContext(UserContext)
@@ -26,7 +28,14 @@ const Park = () => {
       )
     }
 
-    updateAttendees()
+    const unsub = onSnapshot(doc(db, 'parks', parkId), async (doc) => {
+      await updateAttendees()
+    })
+
+    // updateAttendees()
+    return () => {
+      unsub()
+    }
   }, [])
 
   const handleCheckIn = async () => {
@@ -52,10 +61,10 @@ const Park = () => {
 
   const handleCheckOut = async () => {
     const filteredAttendees = attendees.filter(
-      (attendee) => attendee.id !== userInfo.id
+      (attendee) => attendee.id !== currentUser.uid
     )
     try {
-      await checkOut(currentUser.uid)
+      await checkOut(currentUser.uid, parkId)
       setUserInfo((prevUserInfo) => {
         return { ...prevUserInfo, checkedIn: false, park: '' }
       })
