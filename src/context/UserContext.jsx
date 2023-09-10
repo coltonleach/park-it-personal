@@ -2,7 +2,7 @@ import { useState, createContext, useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { auth, db } from '@/firebase'
-import { fetchUser, fetchOwnersDogs } from '@/utils/firebaseUtils'
+import { fetchOwnersDogs } from '@/utils/firebaseUtils'
 
 export const UserContext = createContext()
 

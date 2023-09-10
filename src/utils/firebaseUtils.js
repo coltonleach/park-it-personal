@@ -99,20 +99,20 @@ export const fetchBulletinMessages = async () => {
   return Promise.all(bulletinPromises)
 }
 
-export const addUser = async (name, uid) => {
+export const addUser = async (name, userId) => {
   //maybe make an update function
-  return await setDoc(doc(db, 'users', uid), {
+  return await setDoc(doc(db, 'users', userId), {
     name,
-    id: uid,
+    id: userId,
     completed: false,
   })
 }
 
-export const completeUser = async (name, dogRef, uid) => {
-  return await updateDoc(doc(db, 'users', uid), {
+export const completeUser = async (name, dogRef, userId) => {
+  return await updateDoc(doc(db, 'users', userId), {
     name,
     dogs: dogRef,
-    id: uid,
+    id: userId,
     completed: true,
   })
 }
@@ -123,6 +123,15 @@ export const addDog = async (age, breed, name, sex) => {
     breed,
     name,
     sex,
+  })
+}
+
+export const addAnotherDog = async (dogRef, userId) => {
+  const userRef = await doc(db, 'users', userId)
+  const userSnapshot = await getDoc(userRef)
+  const updatedDogs = [...userSnapshot.data().dogs, dogRef]
+  return await updateDoc(userRef, {
+    dogs: updatedDogs,
   })
 }
 

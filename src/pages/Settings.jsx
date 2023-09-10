@@ -30,7 +30,7 @@ const Settings = () => {
   return (
     <>
       {deleteAccount ? (
-        <Modal showModal={setDeleteAccount}>
+        <Modal setShowModal={setDeleteAccount}>
           <form>
             <input
               type='email'
