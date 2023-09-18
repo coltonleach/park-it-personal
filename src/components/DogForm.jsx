@@ -1,9 +1,14 @@
 import { useRef, useContext } from 'react'
-import { addDog, completeUser, addAnotherDog } from '@/utils/firebaseUtils'
+import {
+  addDog,
+  completeUser,
+  addAnotherDog,
+  updateDog,
+} from '@/utils/firebaseUtils'
 import { UserContext } from '@/context/UserContext'
 import { useNavigate } from 'react-router-dom'
 
-const DogForm = ({ initialSetup }) => {
+const DogForm = ({ initialSetup, selectedDog }) => {
   const { currentUser, setUserInfo } = useContext(UserContext)
   const navigator = useNavigate()
 
@@ -13,6 +18,15 @@ const DogForm = ({ initialSetup }) => {
   const dogBreedRef = useRef()
   const dogMaleRef = useRef()
   const dogFemaleRef = useRef()
+
+  let selectedDogMale = false,
+    selectedDogFemale = false
+
+  selectedDog?.sex == 'Male'
+    ? (selectedDogMale = true)
+    : selectedDog?.sex == 'Female'
+    ? (selectedDogFemale = true)
+    : null
 
   const handleCompleteUser = async (e) => {
     e.preventDefault()
@@ -30,30 +44,41 @@ const DogForm = ({ initialSetup }) => {
       : ''
 
     try {
-      const dogRef = await addDog(dogAge, dogBreed, dogName, dogSex)
-      if (initialSetup) {
-        await completeUser(currentUser.displayName, [dogRef], currentUser.uid)
-        setUserInfo((prevUserInfo) => {
-          return {
-            ...prevUserInfo,
-            dogs: [
-              {
-                age: dogAge,
-                breed: dogBreed,
-                name: dogName,
-                sex: dogSex,
-              },
-            ],
-            completed: true,
-          }
-        })
+      if (selectedDog?.id) {
+        await updateDog(
+          selectedDog.id,
+          dogName == '' ? selectedDog?.name : dogName,
+          dogAge == '' ? selectedDog?.age : dogAge,
+          dogBreed == '' ? selectedDog?.breed : dogBreed,
+          dogSex == '' ? selectedDog?.sex : dogSex
+        )
       } else {
-        await addAnotherDog(dogRef, currentUser.uid)
+        const dogRef = await addDog(dogAge, dogBreed, dogName, dogSex)
+        if (initialSetup) {
+          await completeUser(currentUser.displayName, [dogRef], currentUser.uid)
+          setUserInfo((prevUserInfo) => {
+            return {
+              ...prevUserInfo,
+              dogs: [
+                ...prevUserInfo.dogs,
+                {
+                  age: dogAge,
+                  breed: dogBreed,
+                  name: dogName,
+                  sex: dogSex,
+                },
+              ],
+              completed: true,
+            }
+          })
+        } else {
+          await addAnotherDog(dogRef, currentUser.uid)
+        }
       }
-      navigator('/')
     } catch (err) {
       console.error(err)
     }
+    navigator('/')
   }
 
   return (
@@ -62,14 +87,14 @@ const DogForm = ({ initialSetup }) => {
         type='text'
         ref={dogNameRef}
         id='dog_name'
-        placeholder={`what's their name?`}
-        required
+        placeholder={selectedDog?.id ? selectedDog.name : `what's their name?`}
+        required={selectedDog?.id ? false : true}
       />
       <input
         type='number'
         ref={dogAgeRef}
         id='dog_age'
-        placeholder={`what's their age?`}
+        placeholder={selectedDog?.id ? selectedDog.age : `age?`}
         min='0'
         max='20'
       />
@@ -83,8 +108,8 @@ const DogForm = ({ initialSetup }) => {
         type='text'
         ref={dogBreedRef}
         id='dog_breed'
-        placeholder='breed'
-        required
+        placeholder={selectedDog?.id ? selectedDog.breed : `breed?`}
+        required={selectedDog?.id ? false : true}
       />
       <div>
         <input
@@ -94,6 +119,7 @@ const DogForm = ({ initialSetup }) => {
           id='dog_male'
           value='Male'
           style={{ display: 'none' }}
+          defaultChecked={selectedDogMale}
         />
         <label htmlFor='dog_male' className='btn'>
           Boy
@@ -105,6 +131,7 @@ const DogForm = ({ initialSetup }) => {
           id='dog_female'
           value='Female'
           style={{ display: 'none' }}
+          defaultChecked={selectedDogFemale}
         />
         <label htmlFor='dog_female' className='btn'>
           Girl

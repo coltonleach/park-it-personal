@@ -13,6 +13,7 @@ import {
   deleteField,
   orderBy,
   limit,
+  deleteDoc,
 } from 'firebase/firestore'
 
 export const fetchAttendeesAndDogs = async (park) => {
@@ -39,7 +40,7 @@ export const fetchOwnersDogs = async (userSnapshot) => {
   const dogsPromises = userSnapshot.data().dogs.map(async (dog) => {
     const dogRef = doc(db, 'dogs', dog.id)
     const dogSnapshot = await getDoc(dogRef)
-    return dogSnapshot.data()
+    return { ...dogSnapshot.data(), id: dog.id }
   })
 
   return Promise.all(dogsPromises)
@@ -135,6 +136,15 @@ export const addAnotherDog = async (dogRef, userId) => {
   })
 }
 
+export const updateDog = async (dogId, name, age, breed, sex) => {
+  const dogRef = await doc(db, 'dogs', dogId)
+  return await updateDoc(dogRef, {
+    name,
+    age,
+    breed,
+    sex,
+  })
+}
 export const checkIn = async (userId, parkId) => {
   const userRef = doc(db, 'users', userId)
   const parkRef = doc(db, 'parks', parkId)
@@ -179,4 +189,18 @@ export const addBulletinMessage = async (userId, message) => {
     message,
     createdTime: serverTimestamp(),
   })
+}
+
+export const deleteDog = async (dogId, userId) => {
+  const userRef = doc(db, 'users', userId)
+
+  const userSnapshot = await getDoc(userRef)
+  const dogs = userSnapshot.data().dogs
+  const updatedDogs = dogs.filter((dog) => dog.id !== dogId)
+
+  await updateDoc(userRef, {
+    dogs: updatedDogs,
+  })
+
+  return await deleteDoc(doc(db, 'dogs', dogId))
 }
