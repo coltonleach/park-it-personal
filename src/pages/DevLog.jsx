@@ -5,6 +5,18 @@ const DevLog = () => {
     <>
       <h1>9/17/23</h1>
       <div className='update-container'>
+        <p>
+          For more detailed info, you can{' '}
+          <a
+            href='https://github.com/coltonleach/park-it-personal/commits/master'
+            target='_blank'
+            rel='noreferrer'
+            style={{ padding: '0' }}
+          >
+            click here
+          </a>
+          .
+        </p>
         <ul className='update-list'>
           <h2>Updates</h2>
           <li>

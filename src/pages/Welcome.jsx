@@ -43,6 +43,7 @@ const Welcome = () => {
           <a
             href='https://github.com/coltonleach/park-it-personal'
             target='_blank'
+            rel='noreferrer'
             style={{ padding: '0' }}
           >
             click here to view the GitHub repo
